@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    var str1 = "0000000000011111010111111001011100111111110101110110000000011001"
+    var str2 = "0000000000000000000011000000110000010110110000111111101111111111"
+    var hammingDistanceValue = hammingDistance(str1, str2)
+
+    console.log(hammingDistanceValue) //29
+    console.log(((str1.length - hammingDistanceValue) / str1.length).toFixed(2)) //0.55
+
+    var str1Num = str1.split('').map(f => Number(f))
+    var str2Num = str2.split('').map(f => Number(f))
+    var cosSimilar = (cosineSimilarity(str1Num, str2Num)).toFixed(2)
+    console.log(cosSimilar, str1Num, str2Num)
+
+    function hammingDistance(str1, str2) {
+        let distance = 0;
+        const str1Arr = str1.split('');
+        const str2Arr = str2.split('');
+        distance = Math.abs(str1Arr.length - str2Arr.length);
+        str1Arr.forEach((letter, index) => {
+            if (letter !== str2Arr[index]) {
+                distance++;
+            }
+        });
+        return distance;
+    }
+
+    function cosineSimilarity(sampleFingerprint, targetFingerprint) {
+        // cosθ = ∑n, i=1(Ai × Bi) / (√∑n, i=1(Ai)^2) × (√∑n, i=1(Bi)^2) = A · B / |A| × |B|
+        const length = sampleFingerprint.length;
+        let innerProduct = 0;
+        for (let i = 0; i < length; i++) {
+            innerProduct += sampleFingerprint[i] * targetFingerprint[i];
+        }
+        let vecA = 0;
+        let vecB = 0;
+        for (let i = 0; i < length; i++) {
+            vecA += Math.pow(sampleFingerprint[i], 2);
+            vecB += Math.pow(targetFingerprint[i], 2);
+        }
+        const outerProduct = Math.sqrt(vecA) * Math.sqrt(vecB);
+        return innerProduct / outerProduct;
+    }
+</script>
+</body>
+</html>

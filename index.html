@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/main.css">
+  <title>Playground</title>
+</head>
+<body>
+<div id="app">
+  <table class="table" border="1" cellspacing="0">
+    <tr>
+      <th>原图</th>
+      <th>平均哈希算法</th>
+      <th>感知哈希算法</th>
+      <th>
+        颜色分布法
+        <div>颜色区间数量 {{zoneAmount}}</div>
+        <!-- <input @change="onRangeChange" type="range" max="128" min="4" step="4" v-model="zoneAmount"> -->
+        <select @change="onRangeChange" v-model="zoneAmount">
+          <option value="4">4</option>
+          <option value="8">8</option>
+          <option value="16">16</option>
+          <option value="32">32</option>
+          <option value="64">64</option>
+        </select>
+      </th>
+      <th>内容特征法</th>
+    </tr>
+    <tr>
+      <td class="table-td">
+        <img :src="img1.src.raw" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img1.src.aHash" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img1.src.pHash" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img1.src.colorSeperate" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img1.src.contentFeature" alt="" srcset="">
+      </td>
+    </tr>
+    <tr>
+      <td>特征值</td>
+      <td>
+        <input type="text" :value="img1.fingerprint.aHash">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.pHash">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.colorSeperate">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.contentFeature">
+      </td>
+    </tr>
+    <tr>
+      <td>特征长度</td>
+      <td>
+        <input type="text" :value="img1.fingerprint.aHash.length">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.pHash.length">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.colorSeperate.length">
+      </td>
+      <td>
+        <input type="text" :value="img1.fingerprint.contentFeature.length">
+      </td>
+    </tr>
+
+    <tr>
+      <td class="table-td">
+        <img :src="img2.src.raw" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img2.src.aHash" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img2.src.pHash" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img2.src.colorSeperate" alt="" srcset="">
+      </td>
+      <td class="table-td">
+        <img :src="img2.src.contentFeature" alt="" srcset="">
+      </td>
+    </tr>
+    <tr>
+      <td>特征值</td>
+      <td>
+        <input type="text" :value="img2.fingerprint.aHash">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.pHash">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.colorSeperate">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.contentFeature">
+      </td>
+    </tr>
+    <tr>
+      <td>特征长度</td>
+      <td>
+        <input type="text" :value="img2.fingerprint.aHash.length">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.pHash.length">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.colorSeperate.length">
+      </td>
+      <td>
+        <input type="text" :value="img2.fingerprint.contentFeature.length">
+      </td>
+    </tr>
+
+    <tr>
+      <td>比对结果</td>
+      <td>
+        <pre>{{compareResult.aHash}}</pre>
+      </td>
+      <td>
+        <pre>{{compareResult.pHash}}</pre>
+      </td>
+      <td>
+        <pre>{{compareResult.colorSeperate}}</pre>
+      </td>
+      <td>
+        <pre>{{compareResult.contentFeature}}</pre>
+      </td>
+    </tr>
+  </table>
+  <div class="tools">
+    <p>图片大小: {{imgWidth}} × {{imgWidth}}</p>
+    <input @change="onRangeChange" type="range" max="180" min="8" step="4" v-model="imgWidth">
+    <input @change="onItemChange($event, 'img1')" type="file">
+    <input @change="onItemChange($event, 'img2')" type="file">
+  </div>
+</div>
+<script src="./js/vue.min.js"></script>
+<script src="./app.js" type="module"></script>
+</body>
+</html>
